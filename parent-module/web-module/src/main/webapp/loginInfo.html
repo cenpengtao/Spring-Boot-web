@@ -1,0 +1,48 @@
+<html>
+<head>
+<title>登录信息</title>
+<script src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
+<script>
+	$(document).ready(function(){
+	    $.getJSON("/customer/getLoginInfo", function(data) {
+	    	
+	    	if(data.errorCode=="0x03"||data.username==null)//无权访问判断
+	    	{
+	    		alert("无权访问，请登录！");
+	    		location.href="/login.html";
+	    	}
+	    	
+			$("#username").text("用户名："+data.username);
+			$("#phone").text("手机号码："+data.phone);
+			$("#mail").text("电子邮箱："+data.mail);
+			$("#lastLoginTime").text("最后登录时间："+new Date(data.lastLoginTime).toLocaleString());
+			$("#ipAdd").text("最后登录ip："+data.ipAdd);
+			$("#createTime").text("注册时间："+new Date(data.createTime).toLocaleString());
+			$("#role").text("角色:");		
+			switch (data.role) {
+			case 0:$("#role").append("<font color='green'>普通用户</font>");break;
+			case 1:$("#role").append("<font color='red'>管理员</font>");break;
+			default:$("#role").append("<font color='orange'>未知</font>");break;
+			}
+	    });
+	});
+</script>
+
+</head>
+<body>
+<h2 align="left">LoginInfo</h2>
+<h4>
+	<a href="/">返回主页</a>
+</h4>
+<h4 id="username" ></h4>
+<h4 id="phone"></h4>
+<h4 id="mail"></h4>
+<h4 id="lastLoginTime"></h4>
+<h4 id="ipAdd"></h4>
+<h4 id=createTime></h4>
+<h4 id="role"></h4>
+<h4>
+	<a href="loginRecord.html">登陆记录</a>
+</h4>
+</body>
+</html>

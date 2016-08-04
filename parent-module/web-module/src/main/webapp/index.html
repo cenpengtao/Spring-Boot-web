@@ -1,0 +1,21 @@
+<html>
+<head>
+<title>主页</title>
+<script src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+    $.getJSON("/customer/getLoginInfo", function(data) {
+    	if(data.errorCode=="0x03"||data.username==null)//无权访问判断
+    		$("#login").html("<a href='/login.html'>登录</a>");
+    	else
+			$("#login").html("<a href='/loginInfo.html'>"+data.username+"</a> <a href='/logout'>注销</a>");
+		});
+});
+</script>
+</head>
+
+<body>
+<h2 align="center">主页</h2>
+<h4 id="login" align="right"></h4>
+</body>
+</html>

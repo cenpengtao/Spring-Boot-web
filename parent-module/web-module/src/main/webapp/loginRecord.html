@@ -1,0 +1,31 @@
+<html>
+<head>
+<title>登录记录</title>
+<script src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
+<script>
+	$(document).ready(function(){
+	    $.getJSON("/customer/getLoginRecord", function(data) {
+	    	
+	    	if(data.errorCode=="0x03")//无权访问判断
+	    	{
+	    		alert("无权访问，请登录！");
+	    		location.href="/login.html";
+	    	}
+	    	$("body").append("<div><table width='400'>");
+	    	$("body").append("<tr><th width='200'>时间</th><th width='200'>ip地址</th></tr>");
+	        $.each(data, function(i, item) {
+	            $("body").append("<tr><td>"+new Date(item.loginTime).toLocaleString()
+	            +"</td><td>"+item.ipAdd+"</td></tr>");
+	        });
+	        $("body").append("</table></div>");
+	    });
+	});
+</script>
+</head>
+<body>
+<h2 align="center">LoginRecord</h2>
+<h4>
+	<a href="loginInfo.html">返回个人信息</a>
+</h4>
+</body>
+</html>

@@ -1,0 +1,62 @@
+<html>
+<head>
+<title>用户登录</title>
+<script src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
+<script src="/js/jquery.form.js"></script>
+<script>
+    $.getJSON("/customer/getLoginInfo", function(data) {
+    	if(data.errorCode!="0x03")//判断是否登录
+    		location.href="/index.html";
+		});
+</script>
+	<script type="text/javascript">
+		//刷新验证码
+		function changeImg()
+		{
+		   document.getElementById("validateCodeImg").src="/getIdentifyCode?sid="+Math.random();
+		}
+	</script>
+</head>
+<body>
+	<form id="loginForm" name="loginForm" action="/login.check" method="post">
+	<input type="text" name="username" id="username" value=""/>
+	<input type="password" name="password" id="password" value=""/>	
+	<input type="checkbox" id="remember-me" name="remember-me"/>
+	<label for="remember-me">一周内免登录</label>
+	<br/>
+	验证码：<input type="text" name="code" />
+	<img alt="验证码看不清，换一张" src="/getIdentifyCode" id="validateCodeImg" onclick="changeImg()">
+	<a href="javascript:void(0)" onclick="changeImg()">看不清，换一张</a> 
+	<br>
+	<input type="submit" value="确定">
+	<font color="red"><h4 id="errorMessage" ></h4></font>
+	</form>
+	<a href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxa1c31c9f19dd4163&redirect_uri=http%3a%2f%2fwww.cpt725.tk%2fweixin%2flogin.action&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect">微信授权登录</a> 
+	<script>
+		$(document).ready( function () {
+			$("#loginForm").submit(
+					function() {
+						$(this).ajaxSubmit({
+							success:function(resultJson) {
+								if(resultJson.status=="true")
+								{
+									location.href = "/";
+								}
+								else
+								{
+									$("#errorMessage").text(resultJson.message);
+									changeImg();
+								}
+							},
+							error:function() {//post请求错误
+									location.reload();
+								}
+						
+						}); 
+						return false; //阻止表单默认提交
+					});
+		});
+	
+	</script>
+</body>
+</html>
