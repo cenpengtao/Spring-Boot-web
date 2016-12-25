@@ -27,18 +27,7 @@
 			<type>pom</type>
 			<scope>import</scope>
 		</dependency>
-		 <dependency>  
-	        <groupId>org.springframework.boot</groupId>  
-	        <artifactId>spring-boot-starter-web</artifactId>  
-	        <version>${spring.boot.version}</version>
-	    </dependency> 
-	           		<!--支持jsp-->
-		<dependency>
-			<groupId>org.apache.tomcat.embed</groupId>
-			<artifactId>tomcat-embed-jasper</artifactId>
-			<version>8.0.28</version>
-			<scope>provided</scope>  
-		</dependency>
+
 		
 		<!-- 支持json -->
 		<dependency>

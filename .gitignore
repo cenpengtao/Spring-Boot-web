@@ -16,3 +16,5 @@
 /.recommenders
 .project
 .classpath
+parent-module/.idea
+*.iml
